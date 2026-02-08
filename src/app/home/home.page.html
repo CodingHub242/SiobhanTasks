@@ -1,0 +1,79 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Employee Task Manager</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openAddTaskModal()">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar 
+      [(ngModel)]="searchTerm" 
+      (ionInput)="onSearchChange()"
+      placeholder="Search tasks...">
+    </ion-searchbar>
+  </ion-toolbar>
+  <ion-segment [(ngModel)]="filter" (ionChange)="setFilter($event.detail.value)">
+    <ion-segment-button value="all">
+      <ion-label>All</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="pending">
+      <ion-label>Pending</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="completed">
+      <ion-label>Completed</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list *ngIf="tasks.length > 0; else noTasks">
+    <ion-item-sliding *ngFor="let task of tasks">
+      <ion-item>
+        <ion-checkbox 
+          slot="start" 
+          [checked]="task.completed" 
+          (ionChange)="toggleTask(task)">
+        </ion-checkbox>
+        <ion-label [class.completed-task]="task.completed">
+          <h2>{{ task.title }}</h2>
+          <p>{{ task.description }}</p>
+          <ion-chip [color]="getPriorityColor(task.priority)" outline>
+            <ion-icon name="flag" [color]="getPriorityColor(task.priority)"></ion-icon>
+            {{ task.priority | titlecase }}
+          </ion-chip>
+          <ion-chip [class]="'status-chip ' + getDueDateStatus(task)">
+            <ion-icon name="calendar"></ion-icon>
+            {{ task.dueDate | date:'MMM d, y' }}
+          </ion-chip>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="primary" (click)="openEditTaskModal(task)">
+          <ion-icon name="create"></ion-icon>
+          Edit
+        </ion-item-option>
+        <ion-item-option color="danger" (click)="deleteTask(task)">
+          <ion-icon name="trash"></ion-icon>
+          Delete
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ng-template #noTasks>
+    <div class="no-tasks-container">
+      <ion-icon name="list-box" size="large"></ion-icon>
+      <h3>No tasks found</h3>
+      <p *ngIf="filter === 'all'">Tap + to add a new task</p>
+      <p *ngIf="filter !== 'all'">No {{ filter }} tasks</p>
+    </div>
+  </ng-template>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openAddTaskModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

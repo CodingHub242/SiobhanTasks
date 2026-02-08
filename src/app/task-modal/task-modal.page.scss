@@ -1,0 +1,23 @@
+ion-item {
+  margin-bottom: 16px;
+  --border-radius: 8px;
+}
+
+ion-segment-button {
+  text-transform: capitalize;
+}
+
+ion-input, ion-textarea {
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  border: 1px solid var(--ion-color-medium-shade);
+  border-radius: 8px;
+  margin-top: 4px;
+}
+
+ion-label[position="stacked"] {
+  font-weight: 600;
+  margin-bottom: 8px;
+}

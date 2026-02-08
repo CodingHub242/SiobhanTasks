@@ -1,0 +1,67 @@
+.completed-task {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
+.no-tasks-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  text-align: center;
+  color: var(--ion-color-medium);
+  
+  ion-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+  }
+  
+  h3 {
+    margin: 0 0 8px;
+  }
+  
+  p {
+    margin: 0;
+  }
+}
+
+.status-chip {
+  font-size: 12px;
+  
+  &.overdue {
+    --background: var(--ion-color-danger);
+    --color: white;
+  }
+  
+  &.due-today {
+    --background: var(--ion-color-warning);
+    --color: white;
+  }
+  
+  &.due-soon {
+    --background: var(--ion-color-warning-tint);
+  }
+  
+  &.on-track {
+    --background: var(--ion-color-success-tint);
+  }
+  
+  &.completed {
+    --background: var(--ion-color-success);
+    --color: white;
+  }
+}
+
+ion-item-sliding {
+  margin-bottom: 8px;
+}
+
+ion-item {
+  border-radius: 8px;
+  margin: 0 8px;
+}
+
+ion-checkbox {
+  margin-right: 12px;
+}

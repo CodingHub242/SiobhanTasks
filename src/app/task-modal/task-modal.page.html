@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>{{ mode === 'add' ? 'Add Task' : 'Edit Task' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="save()" [disabled]="!title.trim()">Save</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label position="stacked">Title *</ion-label>
+    <ion-input 
+      [(ngModel)]="title" 
+      placeholder="Enter task title"
+      maxlength="100">
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Description</ion-label>
+    <ion-textarea 
+      [(ngModel)]="description" 
+      placeholder="Enter task description"
+      rows="3"
+      maxlength="500">
+    </ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Priority</ion-label>
+    <ion-segment [(ngModel)]="priority">
+      <ion-segment-button value="low">
+        <ion-label>Low</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="medium">
+        <ion-label>Medium</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="high">
+        <ion-label>High</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Due Date</ion-label>
+    <ion-input 
+      type="date" 
+      [(ngModel)]="dueDate">
+    </ion-input>
+  </ion-item>
+</ion-content>
