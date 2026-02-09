@@ -8,6 +8,17 @@ export interface Task {
   employeeId?: string;
   createdAt: Date;
   updatedAt: Date;
+  report?: TaskReport;
+}
+
+export interface TaskReport {
+  id: string;
+  taskId: string;
+  description: string;
+  imageUrl?: string;
+  imagePath?: string;
+  createdAt: Date;
+  submittedBy?: string;
 }
 
 export interface Employee {

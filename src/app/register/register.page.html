@@ -1,0 +1,81 @@
+<ion-content class="ion-padding register-page">
+  <div class="register-wrapper">
+    <div class="header-section">
+      
+    </div>
+
+    <div class="form-section">
+      <div class="form-header">
+        <h1>Create Account</h1>
+        <p>Join us and start managing tasks</p>
+      </div>
+
+      <div class="form-card">
+        <ion-item class="custom-item">
+          <ion-label position="stacked">Full Name</ion-label>
+          <ion-input 
+            type="text" 
+            [(ngModel)]="name" 
+            placeholder="Enter your name">
+          </ion-input>
+        </ion-item>
+
+        <ion-item class="custom-item">
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input 
+            type="email" 
+            [(ngModel)]="email" 
+            placeholder="Enter your email"
+            autocomplete="email">
+          </ion-input>
+        </ion-item>
+
+        <ion-item class="custom-item">
+          <ion-label position="stacked">Password</ion-label>
+          <ion-input 
+            type="password" 
+            [(ngModel)]="password" 
+            placeholder="Create a password"
+            autocomplete="new-password">
+          </ion-input>
+        </ion-item>
+
+        <ion-item class="custom-item">
+          <ion-label position="stacked">Confirm Password</ion-label>
+          <ion-input 
+            type="password" 
+            [(ngModel)]="confirmPassword" 
+            placeholder="Confirm your password"
+            autocomplete="new-password">
+          </ion-input>
+        </ion-item>
+
+        <ion-item class="custom-item">
+          <ion-label position="stacked">Role</ion-label>
+          <ion-select [(ngModel)]="role" placeholder="Select role">
+            <ion-select-option value="employee">Employee</ion-select-option>
+            <ion-select-option value="admin">Admin</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item class="custom-item">
+          <ion-label position="stacked">Department</ion-label>
+          <ion-input 
+            type="text" 
+            [(ngModel)]="department" 
+            placeholder="Enter department">
+          </ion-input>
+        </ion-item>
+
+        <ion-button 
+          expand="block" 
+          (click)="register()" 
+          [disabled]="isLoading || !name || !email || !password"
+          class="register-btn">
+          <ion-spinner *ngIf="isLoading" name="lines-small"></ion-spinner>
+          <span *ngIf="!isLoading">Create Account</span>
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

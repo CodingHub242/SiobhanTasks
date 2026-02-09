@@ -59,8 +59,12 @@ export class HomePage implements OnInit, OnDestroy {
     return filtered.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   }
 
-  setFilter(filter: 'all' | 'completed' | 'pending'): void {
-    this.filter = filter;
+  setFilter(filter: string | undefined): void {
+    if (filter === 'all' || filter === 'completed' || filter === 'pending') {
+      this.filter = filter;
+    } else {
+      this.filter = 'all';
+    }
     this.taskService.tasks$
       .pipe(takeUntil(this.destroy$))
       .subscribe(tasks => {
@@ -104,7 +108,9 @@ export class HomePage implements OnInit, OnDestroy {
         { text: 'Cancel', role: 'cancel' },
         { 
           text: 'Delete', 
-          handler: () => this.taskService.deleteTask(task.id) 
+          handler: () => {
+            this.taskService.deleteTask(task.id).subscribe();
+          }
         }
       ]
     });

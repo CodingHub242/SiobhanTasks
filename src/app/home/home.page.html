@@ -14,7 +14,7 @@
       placeholder="Search tasks...">
     </ion-searchbar>
   </ion-toolbar>
-  <ion-segment [(ngModel)]="filter" (ionChange)="setFilter($event.detail.value)">
+  <ion-segment [(ngModel)]="filter" (ionChange)="setFilter($any($event.detail.value))">
     <ion-segment-button value="all">
       <ion-label>All</ion-label>
     </ion-segment-button>

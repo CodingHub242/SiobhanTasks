@@ -1,0 +1,128 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <ion-icon name="calendar"></ion-icon>
+      {{ selectedDate | date:'EEEE, MMMM d, yyyy' }}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Day Summary -->
+  <div class="day-summary">
+    <div class="summary-card">
+      <div class="summary-stat">
+        <span class="stat-value">{{ getTotalTasks() }}</span>
+        <span class="stat-label">Total Tasks</span>
+      </div>
+      <div class="summary-stat">
+        <span class="stat-value completed">{{ getCompletedTasks() }}</span>
+        <span class="stat-label">Completed</span>
+      </div>
+      <div class="summary-stat">
+        <span class="stat-value pending">{{ getPendingTasks() }}</span>
+        <span class="stat-label">Pending</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tasks Section -->
+  <div class="tasks-section">
+    <div class="section-header">
+      <h3>Tasks for this day</h3>
+      <ion-button fill="solid" size="small" (click)="addTask()">
+        <ion-icon name="add"></ion-icon>
+        Add Task
+      </ion-button>
+    </div>
+
+    <ion-list *ngIf="dayTasks.length > 0; else noTasks" class="tasks-list">
+      <ion-item-sliding *ngFor="let task of dayTasks" class="task-item">
+        <ion-item>
+          <ion-checkbox 
+            slot="start" 
+            [checked]="task.completed" 
+            (ionChange)="toggleTask(task)">
+          </ion-checkbox>
+          <ion-label [class.completed]="task.completed">
+            <div class="task-content" (click)="viewTask(task)">
+              <h2>{{ task.title }}</h2>
+              <p>{{ task.description }}</p>
+              <div class="task-meta">
+                <div class="task-badges">
+                  <span class="badge priority" [class]="task.priority">
+                    <ion-icon name="flag"></ion-icon>
+                    {{ task.priority | titlecase }}
+                  </span>
+                  <span class="badge assignee" *ngIf="getEmployeeName(task.employeeId)">
+                    <ion-icon name="person"></ion-icon>
+                    {{ getEmployeeName(task.employeeId) }}
+                  </span>
+                  <span class="badge status" [class]="task.completed ? 'completed' : 'pending'">
+                    <ion-icon [name]="task.completed ? 'checkmark-circle' : 'time'"></ion-icon>
+                    {{ task.completed ? 'Completed' : 'Pending' }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="secondary" (click)="editTask(task)">
+            <ion-icon name="create"></ion-icon>
+          </ion-item-option>
+          <ion-item-option color="danger" (click)="deleteTask(task)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+    <ng-template #noTasks>
+      <div class="empty-state">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <h3>No tasks scheduled</h3>
+        <p>No tasks assigned for this date</p>
+        <!-- <ion-button fill="solid" (click)="addTask()">
+          <ion-icon name="add"></ion-icon>
+          Add First Task
+        </ion-button> -->
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Employees Section - Only shows employees assigned to tasks on this date -->
+  <div class="employees-section" *ngIf="employees.length > 0">
+    <div class="section-header">
+      <h3>Team Members ({{ employees.length }})</h3>
+    </div>
+    <div class="employees-grid">
+      <div class="employee-card" *ngFor="let employee of employees">
+        <div class="employee-avatar">
+          {{ getInitials(employee.name) }}
+        </div>
+        <div class="employee-info">
+          <span class="employee-name">{{ employee.name }}</span>
+          <span class="employee-role">{{ employee.role | titlecase }}</span>
+        </div>
+        <div class="employee-task-count">
+          <span class="count">{{ getEmployeeTaskCount(employee.id) }}</span>
+          <span class="label">tasks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

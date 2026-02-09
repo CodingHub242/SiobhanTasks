@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, ModalController } from '@ionic/angular';
-import { Task } from '../models/task.model';
+import { IonicModule, ModalController, AlertController, ToastController } from '@ionic/angular';
+import { Task, TaskReport } from '../models/task.model';
+import { User } from '../models/user.model';
 import { TaskService } from '../services/task.service';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-task-modal',
@@ -13,42 +15,137 @@ import { TaskService } from '../services/task.service';
   imports: [CommonModule, FormsModule, IonicModule]
 })
 export class TaskModalPage implements OnInit {
-  @Input() mode: 'add' | 'edit' = 'add';
+  @Input() mode: 'add' | 'edit' | 'view' = 'add';
   @Input() task?: Task;
+  @Input() selectedDate?: Date;
+  @Input() users: User[] = [];
 
   title: string = '';
   description: string = '';
   priority: 'low' | 'medium' | 'high' = 'medium';
   dueDate: string = '';
+  assignedTo: string = '';
+  isLoading: boolean = false;
+  reports: TaskReport[] = [];
+  isAdmin: boolean = false;
 
   constructor(
     private modalController: ModalController,
+    private alertController: AlertController,
+    private toastController: ToastController,
+    private apiService: ApiService,
     private taskService: TaskService
-  ) {}
+  ) {
+    // Check if current user is admin
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    this.isAdmin = currentUser?.role === 'admin';
+  }
 
   ngOnInit(): void {
-    if (this.mode === 'edit' && this.task) {
+    if ((this.mode === 'edit' || this.mode === 'view') && this.task) {
       this.title = this.task.title;
       this.description = this.task.description;
       this.priority = this.task.priority;
       this.dueDate = new Date(this.task.dueDate).toISOString().split('T')[0];
+      this.assignedTo = this.task.employeeId || '';
+    } else if (this.selectedDate) {
+      this.dueDate = new Date(this.selectedDate).toISOString().split('T')[0];
     } else {
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
       this.dueDate = tomorrow.toISOString().split('T')[0];
     }
+
+    // Fetch task reports if in view or edit mode
+    if ((this.mode === 'edit' || this.mode === 'view') && this.task) {
+      this.loadTaskReports();
+    }
+  }
+
+  loadTaskReports(): void {
+    if (!this.task) return;
+    
+    this.apiService.getTaskReports(this.task.id).subscribe({
+      next: (reports: any) => {
+        this.reports = reports.map((r: any) => ({
+          id: r.id?.toString() || '',
+          taskId: r.task_id || this.task!.id,
+          description: r.description || '',
+          imageUrl: r.image_url || r.image || undefined,
+          imagePath: r.image_path || undefined,
+          createdAt: r.created_at ? new Date(r.created_at) : new Date(),
+          submittedBy: r.submitted_by || undefined
+        }));
+      },
+      error: () => {
+        this.reports = [];
+      }
+    });
+  }
+
+  getReportImageUrl(report: TaskReport): string {
+    if (report.imageUrl) {
+      if (report.imageUrl.startsWith('http')) {
+        return report.imageUrl;
+      }
+      return `https://ecg.codepps.online/storage/${report.imageUrl}`;
+    }
+    return '';
   }
 
   dismiss(): void {
     this.modalController.dismiss();
   }
 
+  async showError(message: string): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
+  async showReportDetails(report: TaskReport): Promise<void> {
+    const imageUrl = this.getReportImageUrl(report);
+    
+    const alert = await this.alertController.create({
+      header: 'Task Report',
+      message: report.description,
+      buttons: [
+        { text: 'Close', role: 'cancel' }
+      ]
+    });
+
+    if (imageUrl) {
+      // Add image to alert
+      const dateStr = report.createdAt.toLocaleDateString('en-US', { 
+        year: 'numeric', month: 'short', day: 'numeric', 
+        hour: '2-digit', minute: '2-digit' 
+      });
+      alert.message = `
+        <p>${report.description}</p>
+        <p><small>Submitted: ${dateStr}</small></p>
+        <img src="${imageUrl}" style="max-width: 100%; margin-top: 10px; border-radius: 8px;" />
+      `;
+    }
+
+    await alert.present();
+  }
+
+  async viewReport(report: TaskReport): Promise<void> {
+    await this.showReportDetails(report);
+  }
+
   save(): void {
     if (!this.title.trim()) {
+      this.showError('Please enter a task title');
       return;
     }
 
-    const taskData = {
+    this.isLoading = true;
+
+    const taskData: any = {
       title: this.title.trim(),
       description: this.description.trim(),
       priority: this.priority,
@@ -56,12 +153,38 @@ export class TaskModalPage implements OnInit {
       completed: this.task?.completed || false
     };
 
-    if (this.mode === 'edit' && this.task) {
-      this.taskService.updateTask(this.task.id, taskData);
-    } else {
-      this.taskService.addTask(taskData);
+    // Only include employee_id if an employee is selected
+    if (this.assignedTo) {
+      taskData.employee_id = this.assignedTo;
     }
 
-    this.modalController.dismiss();
+    const request = this.mode === 'edit' && this.task
+      ? this.taskService.updateTask(this.task.id, taskData)
+      : this.taskService.addTask(taskData);
+
+    request.subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.modalController.dismiss({ success: true });
+      },
+      error: (error) => {
+        this.isLoading = false;
+        const errorMsg = error.error?.errors || error.errors || 'Failed to save task';
+        this.showError(errorMsg);
+      }
+    });
+  }
+
+  getEmployeeName(userId: string): string {
+    const user = this.users.find(u => u.id === userId);
+    return user ? user.name : 'Unknown';
+  }
+
+  getReportCount(): number {
+    return this.reports.length;
+  }
+
+  hasReports(): boolean {
+    return this.reports.length > 0;
   }
 }

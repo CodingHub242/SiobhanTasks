@@ -1,0 +1,128 @@
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+}
+
+.login-wrapper {
+  width: 100%;
+  max-width: 500px;
+  padding: 24px;
+  margin: auto;
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 48px;
+
+  .logo-icon {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 24px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+
+    ion-icon {
+      font-size: 48px;
+      color: white;
+    }
+  }
+
+  h1 {
+    margin: 0 0 12px;
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+
+  p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 16px;
+  }
+}
+
+.form-section {
+  .form-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 32px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+
+    h2 {
+      margin: 0 0 32px;
+      font-size: 24px;
+      font-weight: 600;
+      color: #1a1a2e;
+      text-align: center;
+    }
+  }
+}
+
+.custom-item {
+  --background: #f8f9fa;
+  --border-radius: 14px;
+  --padding-start: 20px;
+  --padding-end: 20px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  margin-bottom: 16px;
+  --inner-border-width: 0;
+
+  ion-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 10px;
+  }
+
+  ion-input {
+    font-size: 17px;
+    color: #1a1a2e;
+    min-height: 44px;
+  }
+}
+
+.login-btn {
+  margin-top: 32px;
+  height: 56px;
+  font-size: 18px;
+  font-weight: 600;
+  --border-radius: 14px;
+  --box-shadow: none;
+  text-transform: none;
+  letter-spacing: 0.5px;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 28px;
+
+  p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 15px;
+  }
+
+  a {
+    color: #667eea;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #764ba2;
+    }
+  }
+}
+
+ion-spinner {
+  margin-right: 8px;
+}
