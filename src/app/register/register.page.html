@@ -1,7 +1,10 @@
 <ion-content class="ion-padding register-page">
   <div class="register-wrapper">
     <div class="header-section">
-      
+      <ion-button fill="clear" class="back-btn" (click)="navigateToLogin()">
+        <ion-icon name="arrow-back"></ion-icon>
+        Back to Login
+      </ion-button>
     </div>
 
     <div class="form-section">
@@ -53,9 +56,9 @@
         <ion-item class="custom-item">
           <ion-label position="stacked">Role</ion-label>
           <ion-select [(ngModel)]="role" placeholder="Select role">
-            <ion-select-option value="employee">Employee</ion-select-option>
-            <ion-select-option value="admin">Admin</ion-select-option>
-          </ion-select>
+          <ion-select-option value="employee">Employee</ion-select-option>
+          <ion-select-option value="admin">Admin</ion-select-option>
+        </ion-select>
         </ion-item>
 
         <ion-item class="custom-item">

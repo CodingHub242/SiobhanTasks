@@ -72,20 +72,25 @@
   --padding-end: 20px;
   --padding-top: 12px;
   --padding-bottom: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   --inner-border-width: 0;
+  display: block;
+  --inner-padding-end: 0;
 
   ion-label {
     font-size: 14px;
     font-weight: 600;
     color: #495057;
     margin-bottom: 10px;
+    display: block;
   }
 
   ion-input {
     font-size: 17px;
     color: #1a1a2e;
     min-height: 44px;
+    --padding-start: 0;
+    --padding-end: 0;
   }
 }
 
