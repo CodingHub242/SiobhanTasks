@@ -1,117 +1,152 @@
 // Dark Golden and Dark Green Professional Admin Dashboard Theme
 
-.admin-dashboard-page {
-  // ==================== HEADER ====================
-  ion-header {
-    --background: #0d2818 !important;
-    
-    ion-toolbar {
-      --background: linear-gradient(135deg, #0d2818 0%, #1a4a2a 100%) !important;
-      --color: #f0e6d3 !important;
-      --border-color: #2d5a3d !important;
-      --min-height: 64px !important;
-      padding: 0 16px;
-    }
-  }
-
-  button{
-    color:#fff;
-  }
-  .dashboard-title {
+// ==================== HEADER ====================
+// These need to be global as ion-header is outside ion-content
+ion-header {
+  --background: #0d2818 !important;
+  
+  ion-toolbar {
+    --background: linear-gradient(135deg, #0d2818 0%, #1a4a2a 100%) !important;
+    --color: #f0e6d3 !important;
+    --border-color: #2d5a3d !important;
+    --min-height: 64px !important;
+    padding: 0 16px;
     display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.3rem;
-    font-weight: 700;
-    
-    ion-icon {
-      font-size: 24px;
-      color: #d4af37;
-    }
+    justify-content: space-between;
   }
+}
 
-  ion-title {
-    padding: 0;
+button{
+  color:#fff;
+}
+
+.dashboard-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  
+  ion-icon {
+    font-size: 24px;
+    color: #d4af37;
   }
+}
 
-  // ==================== USER MENU ====================
-  ion-buttons {
-    ion-button {
-      --padding-start: 8px;
-      --padding-end: 12px;
-      --border-radius: 8px;
-      
-      &:hover {
-        --background: rgba(212, 175, 55, 0.1);
-      }
-    }
-  }
+ion-title {
+  padding: 0;
+}
 
-  .user-avatar {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #d4af37 0%, #b8942e 100%);
-    color: #0d2818;
+// ==================== USER MENU ====================
+ion-buttons {
+  ion-button {
+    --padding-start: 8px;
+    --padding-end: 12px;
+    --border-radius: 8px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 700;
-    border: 2px solid rgba(212, 175, 55, 0.5);
-    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
-    overflow: hidden;
-    
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
-  .user-name {
-    margin-left: 8px;
-    margin-right: 4px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #f0e6d3;
-  }
-
-  ion-avatar {
-    margin-right: 0;
-  }
-
-  ion-popover {
-    --background: #14291d;
-    --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    border: 1px solid #2d5a3d;
-    border-radius: 12px;
-  }
-
-  ion-list {
-    --background: #14291d;
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  ion-item {
-    --background: transparent;
-    --color: #e8dcc8;
-    --border-color: #1a4a2a;
-    --ripple-color: #d4af37;
-    border-radius: 8px;
-    margin-bottom: 4px;
     
     &:hover {
-      --background: #1a4a2a;
-    }
-    
-    ion-icon {
-      color: #d4af37;
+      --background: rgba(212, 175, 55, 0.1);
     }
   }
+}
 
+.user-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d4af37 0%, #b8942e 100%);
+  color: #0d2818;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  border: 2px solid rgba(212, 175, 55, 0.5);
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+  overflow: hidden;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.user-name {
+  margin-left: 8px;
+  margin-right: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #f0e6d3;
+}
+
+ion-avatar {
+  margin-right: 0;
+  width: 50px;
+  height: 50px;
+}
+
+ion-popover {
+  --background: #14291d;
+  --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border: 1px solid #2d5a3d;
+  border-radius: 12px;
+}
+
+ion-list {
+  --background: #14291d;
+  padding: 8px;
+}
+
+ion-item {
+  --background: transparent;
+  --color: #e8dcc8;
+  --border-color: #1a4a2a;
+  --ripple-color: #d4af37;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  
+  &:hover {
+    --background: #1a4a2a;
+  }
+  
+  ion-icon {
+    color: #d4af37;
+  }
+}
+
+ion-checkbox {
+  --checkbox-background: #0d2818;
+  --checkbox-background-checked: #d4af37;
+  --border-color: #2d5a3d;
+  --border-color-checked: #d4af37;
+  margin-right: 12px;
+}
+
+ion-item-option {
+  ion-icon {
+    color: white;
+  }
+}
+
+ion-fab-button {
+  --background: linear-gradient(135deg, #d4af37 0%, #b8942e 100%);
+  --color: #0d2818;
+  --box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+  
+  &:hover {
+    --background: linear-gradient(135deg, #e8c44d 0%, #d4af37 100%);
+    transform: scale(1.05);
+  }
+}
+
+.action-sheet-button.sc-ion-action-sheet-md{
+  color:#fff !important;
+}
+
+// Page-specific styles - these need scoping
+.admin-dashboard-page {
   // ==================== DASHBOARD HEADER ====================
   .dashboard-header {
     background: linear-gradient(135deg, #0d2818 0%, #14291d 100%);
@@ -325,9 +360,6 @@
     }
   }
 
-  .action-sheet-button.sc-ion-action-sheet-md{
-    color:#fff !important;
-  }
   // Task List Styles
   .task-list {
     background: transparent;
@@ -433,20 +465,6 @@
     .task-main h2,
     .task-main p {
       text-decoration: line-through;
-    }
-  }
-
-  ion-checkbox {
-    --checkbox-background: #0d2818;
-    --checkbox-background-checked: #d4af37;
-    --border-color: #2d5a3d;
-    --border-color-checked: #d4af37;
-    margin-right: 12px;
-  }
-
-  ion-item-option {
-    ion-icon {
-      color: white;
     }
   }
 
@@ -890,18 +908,6 @@
         margin-right: 8px;
         margin-bottom: 0;
       }
-    }
-  }
-
-  // ==================== FAB BUTTON ====================
-  ion-fab-button {
-    --background: linear-gradient(135deg, #d4af37 0%, #b8942e 100%);
-    --color: #0d2818;
-    --box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
-    
-    &:hover {
-      --background: linear-gradient(135deg, #e8c44d 0%, #d4af37 100%);
-      transform: scale(1.05);
     }
   }
 
