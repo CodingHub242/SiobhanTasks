@@ -11,6 +11,8 @@ ion-header {
     --border-color: #2d5a3d !important;
     --min-height: 64px !important;
     padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
   }
 }
 
@@ -41,7 +43,7 @@ ion-buttons {
     --padding-start: 8px;
     --padding-end: 12px;
     --border-radius: 8px;
-   
+    display: flex;
     
     &:hover {
       --background: rgba(212, 175, 55, 0.1);
@@ -81,6 +83,8 @@ ion-buttons {
 
 ion-avatar {
   margin-right: 0;
+  width: 50px;
+  height: 50px;
 }
 
 ion-popover {
@@ -139,6 +143,53 @@ ion-fab-button {
 
 .action-sheet-button.sc-ion-action-sheet-md{
   color:#fff !important;
+}
+
+// Side Navigation - needs to be global for proper display
+.side-nav {
+  width: 220px;
+  background: #14291d !important;
+  border-right: 1px solid #2d5a3d;
+  padding: 16px 12px;
+  
+  ion-list {
+    background: transparent !important;
+    padding: 0;
+  }
+  
+  ion-item {
+    --background: transparent;
+    margin-bottom: 8px;
+    --padding-start: 12px;
+    --min-height: 48px;
+    cursor: pointer;
+    
+    &.active {
+      --background: linear-gradient(135deg, #1a4a2a 0%, #0d2818 100%);
+      --border-color: #d4af37;
+      border: 1px solid #d4af37;
+      
+      ion-icon {
+        color: #d4af37;
+      }
+      
+      ion-label {
+        color: #d4af37;
+        font-weight: 600;
+      }
+    }
+    
+    ion-icon {
+      margin-right: 12px;
+      font-size: 20px;
+    }
+    
+    ion-label {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #e8dcc8;
+    }
+  }
 }
 
 // Page-specific styles - these need scoping
@@ -250,53 +301,6 @@ ion-fab-button {
   .main-content {
     display: flex;
     min-height: calc(100vh - 280px);
-  }
-
-  // Side Navigation
-  .side-nav {
-    width: 220px;
-    background: #14291d !important;
-    border-right: 1px solid #2d5a3d;
-    padding: 16px 12px;
-    
-    ion-list {
-      background: transparent !important;
-      padding: 0;
-    }
-    
-    ion-item {
-      --background: transparent;
-      margin-bottom: 8px;
-      --padding-start: 12px;
-      --min-height: 48px;
-      cursor: pointer;
-      
-      &.active {
-        --background: linear-gradient(135deg, #1a4a2a 0%, #0d2818 100%);
-        --border-color: #d4af37;
-        border: 1px solid #d4af37;
-        
-        ion-icon {
-          color: #d4af37;
-        }
-        
-        ion-label {
-          color: #d4af37;
-          font-weight: 600;
-        }
-      }
-      
-      ion-icon {
-        margin-right: 12px;
-        font-size: 20px;
-      }
-      
-      ion-label {
-        font-size: 0.95rem;
-        font-weight: 500;
-        color: #e8dcc8;
-      }
-    }
   }
 
   // Content Panel
