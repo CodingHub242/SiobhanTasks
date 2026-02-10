@@ -19,7 +19,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": {
-              "base": "www",
+              "base": "/",
               "browser": ""
             },
             "index": "src/index.html",
@@ -63,7 +63,8 @@
               "outputHashing": "all"
             },
             "development": {
-              "optimization": false,
+              "optimization": true,
+              "extractCss": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
