@@ -8,6 +8,8 @@ ion-header {
     --border-color: #2d5a3d;
     --min-height: 64px;
     padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
   }
 }
 
@@ -37,6 +39,7 @@ ion-buttons {
     --padding-start: 8px;
     --padding-end: 12px;
     --border-radius: 8px;
+    display: flex;
     
     &:hover {
       --background: rgba(212, 175, 55, 0.1);
@@ -76,6 +79,8 @@ ion-buttons {
 
 ion-avatar {
   margin-right: 0;
+  width: 50px;
+  height: 50px;
 }
 
 ion-popover {
