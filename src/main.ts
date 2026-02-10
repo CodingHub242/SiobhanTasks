@@ -9,7 +9,13 @@ import { AppComponent } from './app/app.component';
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    provideIonicAngular(),
+    provideIonicAngular({
+      mode: 'md', // Material Design mode for consistent styling
+      backButtonText: 'Back',
+      backButtonIcon: 'arrow-back',
+      swipeBackEnabled: true,
+      hardwareBackButton: true,
+    }),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideHttpClient(),
   ],

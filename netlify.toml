@@ -1,10 +1,10 @@
 [build]
-  command = "npm install && npm run build --prod"
+  command = "npm ci && npm run build"
   publish = "www"
 
 [build.environment]
   NODE_VERSION = "20"
-  NPM_FLAGS = "--prefer-offline"
+  NPM_FLAGS = "--prefer-offall --no-audit"
 
 [[redirects]]
   from = "/*"
