@@ -193,6 +193,10 @@
             </div>
             <div class="calendar-actions">
               <ion-button fill="outline" size="small" (click)="resetToToday()">Today</ion-button>
+              <ion-button size="small" (click)="openAddTaskModal()">
+                <ion-icon name="add"></ion-icon>
+                Add Task
+              </ion-button>
             </div>
           </div>
           
@@ -209,7 +213,8 @@
                 class="calendar-day"
                 [class.other-month]="!day.isCurrentMonth"
                 [class.today]="day.isToday"
-                [class.has-tasks]="day.tasks.length > 0">
+                [class.has-tasks]="day.tasks.length > 0"
+                (click)="openAddTaskModal(day.date)">
                 <span class="day-number">{{ day.date | date:'d' }}</span>
                 <div class="day-tasks">
                   <div 

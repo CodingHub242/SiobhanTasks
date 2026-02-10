@@ -286,6 +286,20 @@ export class EmployeeDashboardPage implements OnInit, OnDestroy {
     await actionSheet.present();
   }
 
+  async openAddTaskModal(date?: Date): Promise<void> {
+    const taskDate = date || this.currentDate;
+    const modal = await this.modalController.create({
+      component: TaskModalPage,
+      componentProps: { mode: 'add', selectedDate: taskDate }
+    });
+    await modal.present();
+    
+    // Refresh tasks after modal closes
+    modal.onDidDismiss().then(() => {
+      this.loadTasks();
+    });
+  }
+
   async openTaskDetailModal(task: Task): Promise<void> {
     const modal = await this.modalController.create({
       component: TaskModalPage,
