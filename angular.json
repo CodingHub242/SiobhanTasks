@@ -37,8 +37,6 @@
               }
             ],
             "styles": [
-              "src/global.scss",
-              "src/theme/variables.scss",
               "src/app/app.component.scss",
               "src/app/login/login.page.scss",
               "src/app/register/register.page.scss",
@@ -48,7 +46,9 @@
               "src/app/employee-dashboard/employee-dashboard.page.scss",
               "src/app/task-modal/task-modal.page.scss",
               "src/app/day-tasks-modal/day-tasks-modal.page.scss",
-              "src/app/task-report-modal/task-report-modal.page.scss"
+              "src/app/task-report-modal/task-report-modal.page.scss",
+              "src/global.scss",
+              "src/theme/variables.scss"
             ],
             "scripts": [],
             "browser": "src/main.ts"
