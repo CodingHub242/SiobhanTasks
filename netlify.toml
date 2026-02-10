@@ -1,5 +1,5 @@
 [build]
-  command = "npm install && ionic build --prod"
+  command = "npm install && npm run build --prod"
   publish = "www"
 
 [build.environment]
