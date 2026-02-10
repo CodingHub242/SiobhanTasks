@@ -91,6 +91,8 @@
   ion-list {
     --background: #14291d;
     padding: 8px;
+    display: flex;
+    flex-direction: column;
   }
 
   ion-item {
